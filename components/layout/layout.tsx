@@ -29,43 +29,33 @@ const Layout: React.FC = ({ children }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <>
-      {/*
-        This example requires updating your template:
+    <div className="h-full flex">
+      {/* Narrow sidebar */}
+      <Sidebar />
 
-        ```
-        <html class="h-full bg-gray-50">
-        <body class="h-full overflow-hidden">
-        ```
-      */}
-      <div className="h-full flex min-h-screen">
-        {/* Narrow sidebar */}
-        <Sidebar />
+      {/* Mobile menu */}
+      <MobileMenu mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
 
-        {/* Mobile menu */}
-        <MobileMenu mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
+      {/* Content area */}
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <header className="w-full">
+          <div className="relative z-10 flex-shrink-0 h-16 bg-white border-b border-gray-200 shadow-sm flex">
+            <button
+              type="button"
+              className="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
+              onClick={() => setMobileMenuOpen(true)}
+            >
+              <span className="sr-only">Open sidebar</span>
+              <MenuAlt2Icon className="h-6 w-6" aria-hidden="true" />
+            </button>
+            <Header />
+          </div>
+        </header>
 
-        {/* Content area */}
-        <div className="flex-1 flex flex-col overflow-hidden">
-          <header className="w-full">
-            <div className="relative z-10 flex-shrink-0 h-16 bg-white border-b border-gray-200 shadow-sm flex">
-              <button
-                type="button"
-                className="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
-                onClick={() => setMobileMenuOpen(true)}
-              >
-                <span className="sr-only">Open sidebar</span>
-                <MenuAlt2Icon className="h-6 w-6" aria-hidden="true" />
-              </button>
-              <Header />
-            </div>
-          </header>
-
-          {/* Main content */}
-          <div className="flex-1 flex items-stretch overflow-hidden">{children}</div>
-        </div>
+        {/* Main content */}
+        <div className="flex-1 flex items-stretch overflow-hidden">{children}</div>
       </div>
-    </>
+    </div>
   )
 }
 

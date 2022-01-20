@@ -3,7 +3,7 @@ import { navigation } from './layout'
 
 const Sidebar: React.FC = () => {
   return (
-    <div className="hidden w-28 bg-indigo-700 overflow-y-auto md:block">
+    <div className="hidden w-28 bg-indigo-700 min-h-screen overflow-y-auto md:block">
       <div className="w-full py-6 flex flex-col items-center">
         <div className="flex-shrink-0 flex items-center">
           <img
