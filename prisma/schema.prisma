@@ -50,7 +50,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-
+  assets        Asset[]
 
   @@map("users")
 }
@@ -62,4 +62,26 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verification_tokens")
+}
+
+model Asset {
+  id          Int      @id @default(autoincrement())
+  url         String
+  createdAt   DateTime @default(now())
+  type        String
+  description String?
+  userId      String?
+  User        User?    @relation(fields: [userId], references: [id])
+  tagId       String?
+  Tag         Tag?     @relation(fields: [tagId], references: [id])
+
+  @@map("assets")
+}
+
+model Tag {
+  id     String  @id @default(cuid())
+  name   String
+  assets Asset[]
+
+  @@map("tags")
 }
