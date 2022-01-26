@@ -1,17 +1,29 @@
 import { Transition } from '@headlessui/react'
+import { useEffect, useRef, useState } from 'react'
+import ReactDOM from 'react-dom'
 
 type Props = {
   open: boolean
   onClose?: () => void
 }
+
 const Modal: React.FC<Props> = ({ children, open, onClose }) => {
-  return (
+  const ref = useRef<Element>()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    ref.current = document.querySelector('#modal-root') as Element
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return null
+  }
+
+  return ReactDOM.createPortal(
     <Transition show={open} className="fixed z-10 inset-0 overflow-y-auto">
       <div
         role="presentation"
-        onClick={() => {
-          if (onClose) onClose()
-        }}
         className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
       >
         {/* <!--
@@ -35,6 +47,22 @@ const Modal: React.FC<Props> = ({ children, open, onClose }) => {
           className="fixed inset-0 transition-opacity"
         >
           <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+          <div
+            className="fixed cursor-pointer p-4 right-8 top-8 text-white"
+            onClick={() => {
+              if (onClose) onClose()
+            }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 "
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </div>
         </Transition.Child>
 
         {/* <!-- This element is to trick the browser into centering the modal contents. --> */}
@@ -63,7 +91,8 @@ const Modal: React.FC<Props> = ({ children, open, onClose }) => {
           {children}
         </Transition.Child>
       </div>
-    </Transition>
+    </Transition>,
+    ref.current as Element,
   )
 }
 

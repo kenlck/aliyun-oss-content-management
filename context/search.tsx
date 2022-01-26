@@ -2,12 +2,17 @@ import { createContext, Dispatch, useReducer } from 'react'
 
 export type SearchContextType = {
   query: string
+  selectedId: string
 }
 
-type Action = { type: 'update_query'; query: string } | { type: 'clear' }
+type Action =
+  | { type: 'update_query'; query: string }
+  | { type: 'update_selected'; selected: string }
+  | { type: 'clear' }
 
 const initialState: SearchContextType = {
   query: '',
+  selectedId: '',
 }
 
 export const SearchContext = createContext<{
@@ -28,6 +33,10 @@ const SearchProvider: React.FC = ({ children }) => {
     switch (action.type) {
       case 'update_query': {
         return { ...state, query: action.query }
+        break
+      }
+      case 'update_selected': {
+        return { ...state, selectedId: action.selected }
         break
       }
       case 'clear': {

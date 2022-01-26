@@ -11,7 +11,7 @@ import { classNames } from '@lib/classNames'
 import { SearchContext } from '@context/search'
 
 const tabs = [
-  { name: 'All Photos', href: '#', current: true },
+  { name: 'All Files', href: '#', current: true },
   // { name: 'Recently Added', href: '#', current: false },
   // { name: 'Favorited', href: '#', current: false },
 ]
@@ -103,6 +103,7 @@ const Index: React.FC = () => {
   useEffect(() => {
     setMyFiles([...manyFiles.filter((f) => f.name.toLowerCase().includes(query.toLowerCase()))])
   }, [query])
+
   return (
     <Layout>
       <main className="flex-1 h-[calc(100vh-63px)] overflow-y-auto">
@@ -129,20 +130,17 @@ const Index: React.FC = () => {
 
           {/* Tabs */}
           <div className="mt-3 sm:mt-2">
-            <div className="sm:hidden">
+            <div className="hidden">
               <label htmlFor="tabs" className="sr-only">
                 Select a tab
               </label>
-              {/* Use an "onChange" listener to redirect the user to the selected tab URL. */}
               <select
                 id="tabs"
                 name="tabs"
                 className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-                defaultValue="Recently Viewed"
+                defaultValue="All Files"
               >
-                <option>Recently Viewed</option>
-                <option>Recently Added</option>
-                <option>Favorited</option>
+                <option>All Files</option>
               </select>
             </div>
             <div className="hidden sm:block">
@@ -187,7 +185,7 @@ const Index: React.FC = () => {
           {/* Gallery */}
           <section className="mt-8 pb-16" aria-labelledby="gallery-heading">
             <h2 id="gallery-heading" className="sr-only">
-              Recently viewed
+              All Files
             </h2>
             <ul
               role="list"
@@ -265,12 +263,14 @@ const Index: React.FC = () => {
             <h3 className="font-medium text-gray-900">Information</h3>
             <dl className="mt-2 border-t border-b border-gray-200 divide-y divide-gray-200">
               {selected &&
-                Object.keys(selected?.information).map((key) => (
-                  <div key={key} className="py-3 flex justify-between text-sm font-medium">
-                    <dt className="text-gray-500">{key}</dt>
-                    <dd className="text-gray-900">{selected?.information[key]}</dd>
-                  </div>
-                ))}
+                Object.keys(selected?.information).map((key) => {
+                  return (
+                    <div key={key} className="py-3 flex justify-between text-sm font-medium">
+                      <dt className="text-gray-500">{key}</dt>
+                      {/* <dd className="text-gray-900">{selected?.information[key]}</dd> */}
+                    </div>
+                  )
+                })}
             </dl>
           </div>
           <div>

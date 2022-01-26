@@ -1,3 +1,5 @@
+import Modal from '@components/common/modal'
+import FileUpload from '@components/files/upload'
 import { SearchContext } from '@context/search'
 import { SearchIcon, PlusSmIcon as PlusSmIconOutline } from '@heroicons/react/outline'
 import { useContext, useEffect, useState } from 'react'
@@ -6,6 +8,8 @@ import { useDebounce } from 'use-debounce'
 const Header: React.FC = () => {
   const { state, dispatch } = useContext(SearchContext)
   const [query, setQuery] = useState('')
+  const [modal, setModal] = useState(false)
+
   const [debouncedQuery] = useDebounce(query, 200)
   useEffect(() => {
     dispatch({ type: 'update_query', query: debouncedQuery })
@@ -92,12 +96,21 @@ const Header: React.FC = () => {
 
         <button
           type="button"
+          onClick={() => setModal(true)}
           className="flex bg-indigo-600 p-1 rounded-full items-center justify-center text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
           <PlusSmIconOutline className="h-6 w-6" aria-hidden="true" />
           <span className="sr-only">Add file</span>
         </button>
       </div>
+      <Modal
+        open={modal}
+        onClose={() => {
+          return setModal(false)
+        }}
+      >
+        <FileUpload />
+      </Modal>
     </div>
   )
 }
