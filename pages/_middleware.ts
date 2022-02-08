@@ -6,7 +6,7 @@ export const middleware: NextMiddleware = async (req) => {
   if (req.nextUrl.pathname === '/') {
     const session = await getToken({
       req: req as unknown as NextApiRequest,
-      secret: process.env.SECRET as string,
+      secret: process.env.NEXT_PUBLIC_SECRET as string,
       // secureCookie: process.env.NEXTAUTH_URL?.startsWith('https://') ?? !!process.env.VERCEL_URL,
       secureCookie: false,
     })
