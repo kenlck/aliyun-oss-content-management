@@ -12,6 +12,8 @@ export const middleware: NextMiddleware = async (req) => {
     })
     // You could also check for any property on the session object,
     // like role === "admin" or name === "John Doe", etc.
+    console.log(session)
+    console.log(process.env.NEXT_PUBLIC_SECRET)
     if (!session) return NextResponse.redirect('/api/auth/signin')
     // If user is authenticated, continue.
   }
