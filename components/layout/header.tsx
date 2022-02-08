@@ -4,6 +4,7 @@ import { SearchContext } from '@context/search'
 import { SearchIcon, PlusSmIcon as PlusSmIconOutline } from '@heroicons/react/outline'
 import { useContext, useEffect, useState } from 'react'
 import { useDebounce } from 'use-debounce'
+import { signOut } from 'next-auth/react'
 
 const Header: React.FC = () => {
   const { state, dispatch } = useContext(SearchContext)
@@ -101,6 +102,27 @@ const Header: React.FC = () => {
         >
           <PlusSmIconOutline className="h-6 w-6" aria-hidden="true" />
           <span className="sr-only">Add file</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => signOut()}
+          className="flex bg-indigo-600 p-1 rounded-full items-center justify-center text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+            />
+          </svg>
+          <span className="sr-only">Sign out</span>
         </button>
       </div>
       <Modal
