@@ -1,10 +1,11 @@
+import { NextApiRequest } from 'next'
 import { getToken } from 'next-auth/jwt'
-import { NextResponse } from 'next/server'
+import { NextMiddleware, NextResponse } from 'next/server'
 
-export async function middleware(req) {
+export const middleware: NextMiddleware = async (req) => {
   if (req.nextUrl.pathname === '/') {
     const session = await getToken({
-      req,
+      req: req as unknown as NextApiRequest,
       secret: process.env.SECRET as string,
       // secureCookie: process.env.NEXTAUTH_URL?.startsWith('https://') ?? !!process.env.VERCEL_URL,
       secureCookie: false,
