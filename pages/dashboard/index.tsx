@@ -111,7 +111,7 @@ const Index: React.FC = () => {
       <main className="flex-1 h-[calc(100vh-63px)] overflow-y-auto">
         <div className="pt-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex">
-            <h1 className="flex-1 text-2xl font-bold text-gray-900">Photos</h1>
+            <h1 className="flex-1 text-2xl font-bold text-gray-900">All Files</h1>
             {/* <div className="ml-6 bg-gray-100 p-0.5 rounded-lg flex items-center sm:hidden">
               <button
                 type="button"
