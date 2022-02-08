@@ -1,19 +1,55 @@
 import { useState } from 'react'
 import numeral from 'numeral'
+import { ossClient } from '@lib/ali_oss'
+import { mutate } from 'swr'
 
 type Props = {
   onClose: () => void
 }
-const FileUpload: React.FC = ({ onClose }) => {
+
+const upload = async (file: File): Promise<string> => {
+  const re = await ossClient.put(file.name, file)
+  // const
+  const fre = await fetch('/api/assets/create', {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      filename: re.name,
+      url: re.url,
+      size: file.size,
+      type: file.type,
+    }),
+  })
+  // const res = await fre.json()
+  if (fre.status === 200) {
+    return 'success'
+  }
+
+  return 'fail'
+  console.log(re)
+}
+
+const FileUpload: React.FC<Props> = ({ onClose }) => {
   const [files, setFiles] = useState<FileList | null>()
   const [err, setError] = useState('')
   console.log(files)
   return (
     <form
-      onSubmit={(e) => {
+      onSubmit={async (e) => {
         e.preventDefault()
         if (!(files && files.length > 0)) {
           setError('Please select file')
+          return
+        }
+        // await upload(files[0])
+        const res = await upload(files[0])
+        if (res === 'success') {
+          mutate('/api/assets/list')
+          onClose()
+        } else {
+          setError('Fail to create asset')
         }
       }}
     >

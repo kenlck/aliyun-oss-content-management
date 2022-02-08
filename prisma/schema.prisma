@@ -2,7 +2,9 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+
 }
 
 datasource db {
@@ -66,11 +68,14 @@ model VerificationToken {
 
 model Asset {
   id          Int      @id @default(autoincrement())
+  assetId     String   @unique @default(cuid()) @map("asset_code")
+  filename    String
   url         String
   createdAt   DateTime @default(now())
-  type        String
+  type        String?
   description String?
   userId      String?
+  size        Decimal?
   User        User?    @relation(fields: [userId], references: [id])
   tagId       String?
   Tag         Tag?     @relation(fields: [tagId], references: [id])

@@ -1,1 +1,4 @@
-export const GLOBAL_PX = 'px-4 sm:px-32'
+export const ALIYUN_ACCESS_KEY_ID = process.env.NEXT_PUBLIC_ALIYUN_ACCESS_KEY_ID ?? ''
+export const ALIYUN_ACCESS_KEY_SECRET = process.env.NEXT_PUBLIC_ALIYUN_ACCESS_KEY_SECRET ?? ''
+export const ALIYUN_OSS_BUCKET = process.env.NEXT_PUBLIC_ALIYUN_OSS_BUCKET ?? ''
+export const ALIYUN_OSS_REGION = process.env.NEXT_PUBLIC_ALIYUN_OSS_REGION ?? ''

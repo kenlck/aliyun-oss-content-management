@@ -109,7 +109,11 @@ const Header: React.FC = () => {
           return setModal(false)
         }}
       >
-        <FileUpload />
+        <FileUpload
+          onClose={() => {
+            return setModal(false)
+          }}
+        />
       </Modal>
     </div>
   )
