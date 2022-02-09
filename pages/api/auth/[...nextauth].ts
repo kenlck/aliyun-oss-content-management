@@ -5,6 +5,11 @@ import prisma from '@lib/prisma'
 
 export default NextAuth({
   adapter: PrismaAdapter(prisma),
+  callbacks: {
+    async redirect({ url, baseUrl }) {
+      return '/dashboard'
+    },
+  },
   providers: [
     CredentialsProvider({
       // The name to display on the sign in form (e.g. "Sign in with...")
