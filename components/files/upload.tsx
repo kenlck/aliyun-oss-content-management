@@ -46,7 +46,8 @@ const FileUpload: React.FC<Props> = ({ onClose }) => {
         // await upload(files[0])
         const res = await upload(files[0])
         if (res === 'success') {
-          mutate('/api/assets/list')
+          window.location.reload()
+
           onClose()
         } else {
           setError('Fail to create asset')
