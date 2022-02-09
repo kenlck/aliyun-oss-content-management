@@ -1,12 +1,6 @@
 import Layout from '@components/layout/layout'
-import React, { useContext, useEffect, useState } from 'react'
-import { HeartIcon } from '@heroicons/react/outline'
-import {
-  PencilIcon,
-  PlusSmIcon as PlusSmIconSolid,
-  ViewGridIcon as ViewGridIconSolid,
-  ViewListIcon,
-} from '@heroicons/react/solid'
+import React, { useContext } from 'react'
+
 import { classNames } from '@lib/classNames'
 import { SearchContext } from '@context/search'
 import FileList from '@components/files/list'
@@ -18,93 +12,8 @@ const tabs = [
   // { name: 'Favorited', href: '#', current: false },
 ]
 
-type File = {
-  id: number
-  name: string
-  size: string
-  source: string
-  information: {
-    'Uploaded by': string
-    Created: string
-    'Last modified': string
-    Dimensions: string
-    Resolution: string
-  }
-  sharedWith: {
-    id: number
-    name: string
-    imageUrl: string
-  }[]
-}
-const files: File[] = [
-  {
-    id: 1,
-    name: 'IMG_4985.HEIC',
-    size: '3.9 MB',
-    source:
-      'https://images.unsplash.com/photo-1582053433976-25c00369fc93?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80',
-    information: {
-      'Uploaded by': 'Marie Culver',
-      Created: 'June 8, 2020',
-      'Last modified': 'June 8, 2020',
-      Dimensions: '4032 x 3024',
-      Resolution: '72 x 72',
-    },
-    sharedWith: [
-      {
-        id: 1,
-        name: 'Aimee Douglas',
-        imageUrl:
-          'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=1024&h=1024&q=80',
-      },
-      {
-        id: 2,
-        name: 'Andrea McMillan',
-        imageUrl:
-          'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=oilqXxSqey&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-      },
-    ],
-  },
-  // More files...
-]
-const manyFiles = Array(100).fill(files[0])
-const currentFile = {
-  name: 'IMG_4985.HEIC',
-  size: '3.9 MB',
-  source:
-    'https://images.unsplash.com/photo-1582053433976-25c00369fc93?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80',
-  information: {
-    'Uploaded by': 'Marie Culver',
-    Created: 'June 8, 2020',
-    'Last modified': 'June 8, 2020',
-    Dimensions: '4032 x 3024',
-    Resolution: '72 x 72',
-  },
-  sharedWith: [
-    {
-      id: 1,
-      name: 'Aimee Douglas',
-      imageUrl:
-        'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=1024&h=1024&q=80',
-    },
-    {
-      id: 2,
-      name: 'Andrea McMillan',
-      imageUrl:
-        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=oilqXxSqey&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-  ],
-}
-
 const Index: React.FC = () => {
-  const [myFiles, setMyFiles] = useState(manyFiles)
-  // const [selected, setSelected] = useState<File | null>(null)
   const { state } = useContext(SearchContext)
-  const { query } = state
-  const selected = state.selectedId
-  useEffect(() => {
-    setMyFiles([...manyFiles.filter((f) => f.name.toLowerCase().includes(query.toLowerCase()))])
-  }, [query])
 
   return (
     <Layout>

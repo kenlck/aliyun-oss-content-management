@@ -6,28 +6,24 @@ import useSWR from 'swr'
 import fetcher from '@lib/fetcher'
 import { Asset, User } from '@prisma/client'
 import numeral from 'numeral'
+import Modal from '@components/common/modal'
+import Slideover from '@components/common/slideover'
 
 type FetchProps = Asset & {
   User: User
 }
 const ItemDetails: React.FC = () => {
-  const { state } = useContext(SearchContext)
+  const { state, dispatch } = useContext(SearchContext)
   const { data: selected, error } = useSWR<FetchProps>([`/api/assets/`, state.selectedId], (api, id) =>
     fetcher(`${api}${id}`),
   )
-  console.log(selected)
-  if (!selected) return <></>
+
   return (
-    <aside
-      className={classNames(
-        'hidden h-[calc(100vh-63px)] w-96 bg-white p-8 border-l border-gray-200 overflow-y-auto',
-        selected ? ' lg:block' : '',
-      )}
-    >
+    <Slideover open={!!selected} onClose={() => dispatch({ type: 'update_selected', selected: '' })}>
       <div className="pb-16 space-y-6">
         <div>
           <div className="block w-full aspect-w-10 aspect-h-7 rounded-lg overflow-hidden">
-            {selected.type?.includes('image') ? (
+            {selected?.type?.includes('image') ? (
               <img src={selected.url} alt="" className="object-cover" />
             ) : (
               <svg
@@ -50,9 +46,9 @@ const ItemDetails: React.FC = () => {
             <div>
               <h2 className="text-lg font-medium text-gray-900">
                 <span className="sr-only">Details for </span>
-                {selected.filename}
+                {selected?.filename}
               </h2>
-              <p className="text-sm font-medium text-gray-500">{numeral(selected.size).format('0.00 b')}</p>
+              <p className="text-sm font-medium text-gray-500">{numeral(selected?.size).format('0.00 b')}</p>
             </div>
             {/* <button
               type="button"
@@ -68,32 +64,32 @@ const ItemDetails: React.FC = () => {
           <dl className="mt-2 border-t border-b border-gray-200 divide-y divide-gray-200">
             <div className="py-3 flex justify-between text-sm font-medium">
               <dt className="text-gray-500">ID</dt>
-              <dd className="text-gray-900">{selected.assetId}</dd>
+              <dd className="text-gray-900">{selected?.assetId}</dd>
             </div>
             <div className="py-3 flex justify-between text-sm font-medium">
               <dt className="text-gray-500">Name</dt>
-              <dd className="text-gray-900">{selected.filename}</dd>
+              <dd className="text-gray-900">{selected?.filename}</dd>
             </div>
             <div className="py-3 flex justify-between text-sm font-medium">
               <dt className="text-gray-500">Type</dt>
-              <dd className="text-gray-900">{selected.type}</dd>
+              <dd className="text-gray-900">{selected?.type}</dd>
             </div>
             <div className="py-3 flex justify-between text-sm font-medium">
               <dt className="text-gray-500">Created at</dt>
-              <dd className="text-gray-900">{selected.createdAt}</dd>
+              <dd className="text-gray-900">{selected?.createdAt}</dd>
             </div>
             <div className="py-3 flex justify-between text-sm font-medium">
               <dt className="text-gray-500">Size</dt>
-              <dd className="text-gray-900">{numeral(selected.size).format('0.00 b')}</dd>
+              <dd className="text-gray-900">{numeral(selected?.size).format('0.00 b')}</dd>
             </div>
             <div className="py-3 flex flex-col justify-between text-sm font-medium">
               <dt className="text-gray-500">URL</dt>
-              <dd className="text-gray-900">{selected.url}</dd>
+              <dd className="text-gray-900">{selected?.url}</dd>
             </div>
             <div className="py-3 flex justify-between text-sm font-medium">
               <dt className="text-gray-500">Upload by</dt>
               <dd className="text-gray-900">
-                {selected.User.name} ({selected.User.email})
+                {selected?.User.name} ({selected?.User.email})
               </dd>
             </div>
           </dl>
@@ -143,7 +139,7 @@ const ItemDetails: React.FC = () => {
         </div> */}
         <div className="flex">
           <a
-            href={selected.url}
+            href={selected?.url}
             target="_blank"
             className="flex-1 text-center bg-indigo-600 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             rel="noreferrer"
@@ -158,7 +154,7 @@ const ItemDetails: React.FC = () => {
           </button> */}
         </div>
       </div>
-    </aside>
+    </Slideover>
   )
 }
 

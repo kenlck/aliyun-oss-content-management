@@ -13,6 +13,7 @@ class MyDocument extends Document {
         <body className="font-poppins">
           <Main />
           <div id="modal-root" />
+          <div id="slideover-root" />
           <NextScript />
         </body>
       </Html>
