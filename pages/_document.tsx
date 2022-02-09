@@ -5,7 +5,7 @@ class MyDocument extends Document {
   render(): ReactElement {
     return (
       <Html className="overflow-hidden">
-        <title>Sharkbate Dashboard 3.0</title>
+        <title>Dashboard</title>
         <Head>
           <link rel="shortcut icon" href="/favicon.png" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
