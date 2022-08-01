@@ -2936,10 +2936,10 @@ urllib@^2.33.1:
     statuses "^1.3.1"
     utility "^1.16.1"
 
-use-debounce@^7.0.1:
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/use-debounce/-/use-debounce-7.0.1.tgz#380e6191cc13ad29f8e2149a12b5c37cc2891190"
-  integrity sha512-fOrzIw2wstbAJuv8PC9Vg4XgwyTLEOdq4y/Z3IhVl8DAE4svRcgyEUvrEXu+BMNgMoc3YND6qLT61kkgEKXh7Q==
+use-debounce@^8.0.3:
+  version "8.0.3"
+  resolved "https://registry.yarnpkg.com/use-debounce/-/use-debounce-8.0.3.tgz#2b4d7d7307a9397acb6520b7a1dea14c2c3d108c"
+  integrity sha512-BV7xuVy4LS0HtzHb23sDwAjfNjdBWlc4oyjJLcdCoVAjPv1+hroZYsCXX4VfRJT+8sLaqCftBOO8l7CMQtn9Gw==
 
 use-subscription@1.5.1:
   version "1.5.1"
